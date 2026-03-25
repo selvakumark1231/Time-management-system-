@@ -1,0 +1,35 @@
+import json
+from datetime import datetime
+
+FILE = "tasks.json"
+
+def load_tasks():
+    try:
+        with open(FILE, "r") as f:
+            return json.load(f)
+    except:
+        return []
+
+def save_tasks(tasks):
+    with open(FILE, "w") as f:
+        json.dump(tasks, f, indent=4)
+
+def add_task(tasks):
+    name = input("Enter task name: ")
+    deadline = input("Enter deadline (YYYY-MM-DD): ")
+    priority = input("Priority (High/Medium/Low): ")
+
+    task = {
+        "name": name,
+        "deadline": deadline,
+        "priority": priority,
+        "time_spent": 0,
+        "status": "Pending"
+    }
+
+    tasks.append(task)
+    save_tasks(tasks)
+    print("Task added successfully.")
+
+def view_tasks(tasks):
+    if not tasks:
